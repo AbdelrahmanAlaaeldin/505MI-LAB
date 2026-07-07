@@ -21,11 +21,11 @@
 - Burp intercepts the traffic, pulling the data from the server over TLS and handing it over plain HTTP
 - Before forwarding, modify the response body by changing the header and modify for example the heading to prove the tampering worked:
 
-![[AITM_1_4.jpeg]]
+- ![[AITM_1_4.jpeg]]
 
-![[AITM_1_5.jpeg]]
+- ![[AITM_1_5.jpeg]]
 
-![[AITM_1_6.jpeg]]
+- ![[AITM_1_6.jpeg]]
 
 ## Case B:
 
