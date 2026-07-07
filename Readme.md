@@ -10,6 +10,6 @@ ID: IN2300016
 
 05_SQLi: https://docsify-this.net/?basePath=https://raw.githubusercontent.com/AbdelrahmanAlaaeldin/505MI-LAB/main/05_SQLi&homepage=SQLi%20Vulnerabilities.md#/
 
-06_AITM_1:
+06_AITM_1: https://docsify-this.net/?basePath=https://raw.githubusercontent.com/AbdelrahmanAlaaeldin/505MI-LAB/main/06_AITM_1&homepage=Aitm_1.md&zoom-images=true#/
 
 06_AITM_2: https://docsify-this.net/?basePath=https://raw.githubusercontent.com/AbdelrahmanAlaaeldin/505MI-LAB/main/06_AITM_2&homepage=Aitm_2.md#/
