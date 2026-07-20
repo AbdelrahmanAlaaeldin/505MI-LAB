@@ -1,7 +1,7 @@
-
 This report details the solutions to the tasks in the SEEDLabs ARP Cache Poisoning Lab.
 
 ## Tools
+
 - This lab has been tested on the SEEDUbuntu20.04 VM
 
 The lab environment is described below:
@@ -11,20 +11,22 @@ The lab environment is described below:
 | Host A     | 10.9.0.5   | 02:42:0a:09:00:05 |
 | Attacker-M | 10.9.0.105 | 02:42:0a:09:00:69 |
 | Host B     | 10.9.0.6   | 02:42:0a:09:00:06 |
+
 ## Task 1: ARP Cache Poisoning
 
 In this task, we poison Host A's ARP cache by mapping Host B's IP address to the Attacker's MAC address. We accomplish this using three distinct methods, detailed below.
 
 ## Task 1.A: Using ARP Request:
 
-![[Screenshot 2026-02-02 222604.png]]
+![[task1.A_code.png]]
 This script sends a spoofed ARP request to poison Host A's cache, mapping Host B's IP to Attacker's MAC:
+
 - Ethernet frame targets Host A from Attacker MAC.
 - ARP packet with source address as B's IP and M's MAC and destination as A's IP and MAC address
 - The `op` field's default value is used i.e. `1` indicating it's an ARP Request.
 
 After running the code we see the packet sent out as:
-![[Screenshot 2026-02-02 224611.png]]
+![[task1.A_M.png]]
 
 The following is the ARP Cache entries in A and B, respectively, before and after executing the script:
 ![[task1.a_arp_A.png]]![[task1.a_arp_B.png]]
@@ -34,12 +36,13 @@ We can see that in the ARP Cache of A, the IP of B is associated to the MAC Addr
 
 ![[task1.b_code.png]]
 This script sends a spoofed ARP reply to poison Host A's cache, mapping Host B's IP to Attacker's MAC:
-- To construct a spoofed reply, the `op` field of the ARP layer is modified to `2`, leaving the rest of the code intact. 
+
+- To construct a spoofed reply, the `op` field of the ARP layer is modified to `2`, leaving the rest of the code intact.
 
 Once executed, the program transmits the following network packet:
 ![[task1.b_M.png]]
 
-The "is-at" string indicates the execution of an ARP reply. 
+The "is-at" string indicates the execution of an ARP reply.
 
 The following is the ARP Cache entries in A and B, respectively, before and after executing the script:
 ![[task1.b_arp_A.png]]![[task1.b_arp_B.png]]
@@ -56,7 +59,6 @@ Once executed, the program transmits the following network packet:
 The following is the ARP Cache entries in A and B, respectively, before and after executing the script:
 ![[task1.c_arp_A.png]]![[task1.c_arp_B.png]]
 Only A's cache got updated. B received the broadcast but dropped it because the sender IP matched its own. An ARP cache only stores mappings for other hosts, so B completely ignored the packet.
-
 
 ## Task 2: MITM Attack on Telnet using ARP Cache Poisoning
 
@@ -113,6 +115,7 @@ This task follows the exact same steps as Task 2.4, only we are targeting a Netc
 This script sniffs TCP traffic and targets packets traveling from A to B, swapping out the string "abdo" for "AAAA" inside the payload. If "abdo" isn't found, the packet is forwarded completely unchanged to its destination. Meanwhile, any return traffic from B to A is ignored by the script and left entirely alone.
 
 Once the ARP cache is poisoned, we executed these commands on the attacker's terminal to open the Netcat connection and start the spoofing script:
+
 ```bash
 $ Task2.A.py
 $ sysctl net.ipv4.ip_forward=1  # Temporarily enable forwarding to connect Netcat
